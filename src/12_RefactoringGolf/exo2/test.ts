@@ -13,6 +13,13 @@ describe("TicTacToe game", () => {
     }).toThrow();
   });
 
+  it('allows player X to play first', () => {
+    expect(() => {
+      game.Play('X', 0, 0);
+    }).not.toThrow();
+  });
+
+
   it("should not allow player x to play twice in a row", () => {
     game.Play("X", 0, 0);
     expect(() => {
