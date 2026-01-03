@@ -47,40 +47,79 @@ export class Game {
 
 
 
-public Winner(): string {
- const first = this.winnerInRow(0);
-  if (first != " ") return first;
-
-  const second = this.winnerInRow(1);
-  if (second != " ") return second;
-
-  const third = this.winnerInRow(2);
-  if (third != " ") return third;
-
-  return " ";
-}
-
-private winnerInRow(row: number): string {
-  if (this.isRowFull(row) && this.isRowFullWithSameSymbol(row)) {
-    return this._toto.TileAt(row, 0)!.Symbol;
+  public Winner(): string {
+  //if the positions in first row are taken
+  if (this.isFirstRowFull()) {
+    //if first row is full with same symbol
+    if (this.isFirstRowFullWithSameSymbol()) {
+      return this._toto.TileAt(0, 0)!.Symbol;
+    }
   }
+
+  //if the positions in 2nd row are taken
+  if (this.isSecondRowFull()) {
+    //if middle row is full with same symbol
+    if (this.isSecondRowFullWithSameSymbol()) {
+      return this._toto.TileAt(1, 0)!.Symbol;
+    }
+  }
+
+  //if the positions in 3rd row are taken
+  if (this.isThirdRowFull()) {
+    //if bottom row is full with same symbol
+    if (this.isThirdRowFullWithSameSymbol()) {
+      return this._toto.TileAt(2, 0)!.Symbol;
+    }
+  }
+
   return " ";
 }
 
-private isRowFull(row: number) {
+private isFirstRowFull() {
   return (
-    this._toto.TileAt(row, 0)!.Symbol != " " &&
-    this._toto.TileAt(row, 1)!.Symbol != " " &&
-    this._toto.TileAt(row, 2)!.Symbol != " "
+    this._toto.TileAt(0, 0)!.Symbol != " " &&
+    this._toto.TileAt(0, 1)!.Symbol != " " &&
+    this._toto.TileAt(0, 2)!.Symbol != " "
   );
 }
 
-private isRowFullWithSameSymbol(row: number) {
+private isFirstRowFullWithSameSymbol() {
   return (
-    this._toto.TileAt(row, 0)!.Symbol == this._toto.TileAt(row, 1)!.Symbol &&
-    this._toto.TileAt(row, 2)!.Symbol == this._toto.TileAt(row, 1)!.Symbol
+    this._toto.TileAt(0, 0)!.Symbol == this._toto.TileAt(0, 1)!.Symbol &&
+    this._toto.TileAt(0, 2)!.Symbol == this._toto.TileAt(0, 1)!.Symbol
   );
 }
+
+private isSecondRowFull() {
+  return (
+    this._toto.TileAt(1, 0)!.Symbol != " " &&
+    this._toto.TileAt(1, 1)!.Symbol != " " &&
+    this._toto.TileAt(1, 2)!.Symbol != " "
+  );
+}
+
+private isSecondRowFullWithSameSymbol() {
+  return (
+    this._toto.TileAt(1, 0)!.Symbol == this._toto.TileAt(1, 1)!.Symbol &&
+    this._toto.TileAt(1, 2)!.Symbol == this._toto.TileAt(1, 1)!.Symbol
+  );
+}
+
+private isThirdRowFull() {
+  return (
+    this._toto.TileAt(2, 0)!.Symbol != " " &&
+    this._toto.TileAt(2, 1)!.Symbol != " " &&
+    this._toto.TileAt(2, 2)!.Symbol != " "
+  );
+}
+
+private isThirdRowFullWithSameSymbol() {
+  return (
+    this._toto.TileAt(2, 0)!.Symbol == this._toto.TileAt(2, 1)!.Symbol &&
+    this._toto.TileAt(2, 2)!.Symbol == this._toto.TileAt(2, 1)!.Symbol
+  );
+}
+
 }
 
 interface Tile {
