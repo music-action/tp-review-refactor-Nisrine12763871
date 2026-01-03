@@ -109,17 +109,20 @@ interface Tile {
   Symbol: string;
 }
 
+const BOARD_SIZE = 3;
+
 class Board {
   private _plays: Tile[] = [];
 
   constructor() {
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: EMPTY_SYMBOL };
-        this._plays.push(tile);
-      }
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    for (let j = 0; j < BOARD_SIZE; j++) {
+      const tile: Tile = { X: i, Y: j, Symbol: EMPTY_SYMBOL };
+      this._plays.push(tile);
     }
   }
+}
+
 
   public TileAt(x: number, y: number): Tile {
     return this._plays.find((t: Tile) => t.X == x && t.Y == y)!;
