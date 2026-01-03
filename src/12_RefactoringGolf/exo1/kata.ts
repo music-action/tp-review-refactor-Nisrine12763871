@@ -6,26 +6,46 @@ export class Game {
   private _toto: Board = new Board();
 
   public Play(symbol: string, x: number, y: number): void {
-    //if first move
+    this.validateFirstMove(symbol);
+
+    if (this._lastSymbol != " ") {
+      this.validatePlayer(symbol);
+      this.validatePositionIsEmpty(x, y);
+    }
+
+    this.updateLastPlayer(symbol);
+    this.updateBoard(symbol, x, y);
+  }
+
+  private validateFirstMove(player: string) {
     if (this._lastSymbol == " ") {
-      //if player is X
-      if (symbol == "O") {
+      if (player == "O") {
         throw new Error("Invalid first player");
       }
     }
-    //if not first move but player repeated
-    else if (symbol == this._lastSymbol) {
+  }
+
+  private validatePlayer(player: string) {
+    if (player == this._lastSymbol) {
       throw new Error("Invalid next player");
     }
-    //if not first move but play on an already played tile
-    else if (this._toto.TileAt(x, y).Symbol != " ") {
+  }
+
+  private validatePositionIsEmpty(x: number, y: number) {
+    if (this._toto.TileAt(x, y).Symbol != " ") {
       throw new Error("Invalid position");
     }
-
-    // update game state
-    this._lastSymbol = symbol;
-    this._toto.AddTileAt(symbol, x, y);
   }
+
+  private updateLastPlayer(player: string) {
+    this._lastSymbol = player;
+  }
+
+  private updateBoard(player: string, x: number, y: number) {
+    this._toto.AddTileAt(player, x, y);
+  }
+
+
 
   public Winner(): string {
     //if the positions in first row are taken
